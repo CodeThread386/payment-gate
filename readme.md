@@ -33,7 +33,7 @@ Dependencies:
 
 ## Configuration
 
-Create a `.env` file in the project directory:
+Create a `.env` file in the `backend/` directory:
 
 ```env
 RAZORPAY_KEY_ID=your_razorpay_key_id
@@ -48,11 +48,17 @@ Get your Razorpay keys from https://razorpay.com dashboard.
 ## Usage
 
 ```bash
+# Navigate to backend directory
+cd backend
+
+# Install dependencies
+npm install
+
 # Start the backend server
 npm start
 
 # Open the frontend
-# Open shop-products.html in your browser
+# Open frontend/shop-products.html in your browser
 ```
 
 The server will start on `http://localhost:3000`
@@ -68,13 +74,19 @@ Use any future expiry date and any CVV.
 
 ## Project Structure
 
-* `shop-products.html` - Product catalog and shopping cart
-* `checkout.html` - Billing details form
-* `payment.html` - Payment processing with Razorpay
-* `success.html` - Order confirmation page
-* `server.js` - Express backend with payment APIs
-* `package.json` - Dependencies configuration
-* `.env.template` - Environment variables template
+```
+secureshop/
+├── backend/
+│   ├── .env.template      # Environment variables template
+│   ├── package.json       # Dependencies configuration
+│   └── server.js          # Express backend with payment APIs
+├── frontend/
+│   ├── shop-products.html # Product catalog and shopping cart
+│   ├── checkout.html      # Billing details form
+│   ├── payment.html       # Payment processing with Razorpay
+│   └── success.html       # Order confirmation page
+└── readme.md
+```
 
 ## Output
 

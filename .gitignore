@@ -1,0 +1,31 @@
+# Environment variables (contains sensitive API keys)
+.env
+backend/.env
+
+# Dependencies
+node_modules/
+backend/node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Optional: package lock (uncomment if you want to ignore it)
+# package-lock.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+coverage/
+
+# Build files (if any)
+dist/
+build/
