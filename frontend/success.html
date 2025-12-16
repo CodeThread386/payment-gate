@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - SecureShop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f9fafb;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .success-card {
+            background: white;
+            padding: 4rem 3rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 3rem;
+            animation: scaleIn 0.5s ease-out 0.3s both;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+
+        .order-details {
+            background: #f9fafb;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-top: 0.5rem;
+            padding-top: 1rem;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .detail-label {
+            color: #6b7280;
+        }
+
+        .detail-value {
+            color: #111827;
+            font-weight: 600;
+        }
+
+        .items-purchased {
+            margin: 1.5rem 0;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+        }
+
+        .item-icon {
+            font-size: 2rem;
+        }
+
+        .item-details {
+            flex: 1;
+            text-align: left;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .item-price {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            min-width: 200px;
+        }
+
+        .btn-primary {
+            background: #000000;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1f2937;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+
+        .btn-secondary:hover {
+            background: #000000;
+            color: white;
+        }
+
+        .email-notification {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #dbeafe;
+            border-radius: 8px;
+            color: #1e40af;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .success-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="success-card">
+        <div class="success-icon">✓</div>
+        
+        <h1>Payment Successful!</h1>
+        <p class="subtitle">Thank you for your purchase. Your order has been confirmed.</p>
+
+        <div class="order-details">
+            <div class="detail-row">
+                <span class="detail-label">Order ID</span>
+                <span class="detail-value" id="orderId">-</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Payment ID</span>
+                <span class="detail-value" id="paymentId">-</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Date</span>
+                <span class="detail-value" id="orderDate">-</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Amount Paid</span>
+                <span class="detail-value" id="amountPaid">₹0</span>
+            </div>
+        </div>
+
+        <div class="items-purchased">
+            <strong style="display: block; margin-bottom: 1rem; text-align: left;">Items Purchased:</strong>
+            <div id="itemsList">
+                <!-- Items will be loaded here -->
+            </div>
+        </div>
+
+        <div class="email-notification">
+            📧 A confirmation email has been sent to <strong id="customerEmail">your email</strong>
+        </div>
+
+        <div class="action-buttons">
+            <a href="shop-products.html" class="btn btn-primary">
+                🛍️ Continue Shopping
+            </a>
+            <button class="btn btn-secondary" onclick="window.print()">
+                📄 Print Receipt
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Load payment success data
+        function loadSuccessData() {
+            const successData = sessionStorage.getItem('paymentSuccess');
+            
+            if (!successData) {
+                window.location.href = 'shop-products.html';
+                return;
+            }
+
+            const data = JSON.parse(successData);
+
+            // Display order details
+            document.getElementById('orderId').textContent = data.orderId;
+            document.getElementById('paymentId').textContent = data.paymentId;
+            document.getElementById('orderDate').textContent = new Date().toLocaleString();
+            document.getElementById('amountPaid').textContent = `₹${data.amount}`;
+            document.getElementById('customerEmail').textContent = data.billingDetails.email;
+
+            // Display purchased items
+            const itemsList = document.getElementById('itemsList');
+            itemsList.innerHTML = data.items.map(item => `
+                <div class="item">
+                    <div class="item-icon">${item.icon}</div>
+                    <div class="item-details">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-price">₹${item.price}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Clear success data after displaying
+            // sessionStorage.removeItem('paymentSuccess');
+        }
+
+        // Initialize
+        loadSuccessData();
+    </script>
+</body>
+</html>

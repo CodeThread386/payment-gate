@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - SecureShop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f9fafb;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #000000;
+            color: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid white;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: white;
+            color: black;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+        }
+
+        .checkout-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+
+        .step-indicator {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-weight: 700;
+        }
+
+        .step.active .step-number {
+            background: #000000;
+            color: white;
+        }
+
+        .step.completed .step-number {
+            background: #10b981;
+            color: white;
+        }
+
+        .step-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #111827;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #000000;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .order-summary {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .summary-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #111827;
+        }
+
+        .order-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .order-item-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .order-item-details {
+            flex: 1;
+        }
+
+        .order-item-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #111827;
+        }
+
+        .order-item-price {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .price-breakdown {
+            margin: 2rem 0;
+            padding: 1.5rem 0;
+            border-top: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            color: #6b7280;
+        }
+
+        .price-row.total {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #111827;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .continue-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #000000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .continue-btn:hover {
+            background: #1f2937;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .continue-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #10b981;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        @media (max-width: 968px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .order-summary {
+                position: static;
+            }
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .alert.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .alert.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                🛡️ SecureShop
+            </div>
+            <a href="shop-products.html" class="back-link">
+                ← Back to Shop
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Checkout Form -->
+        <div class="checkout-form">
+            <h1>Checkout</h1>
+            <p style="color: #6b7280; margin-bottom: 2rem;">Complete your purchase securely</p>
+
+            <!-- Step Indicator -->
+            <div class="step-indicator">
+                <div class="step active">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Details</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Payment</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Complete</div>
+                </div>
+            </div>
+
+            <div class="alert error" id="errorAlert"></div>
+
+            <!-- Contact Information -->
+            <div class="section">
+                <h2 class="section-title">Contact Information</h2>
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" placeholder="+91 98765 43210" required>
+                </div>
+            </div>
+
+            <!-- Billing Details -->
+            <div class="section">
+                <h2 class="section-title">Billing Details</h2>
+                <div class="form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" placeholder="John Doe" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City *</label>
+                        <input type="text" id="city" placeholder="Mumbai" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State *</label>
+                        <input type="text" id="state" placeholder="Maharashtra" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pincode">PIN Code *</label>
+                        <input type="text" id="pincode" placeholder="400001" maxlength="6" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country *</label>
+                        <input type="text" id="country" value="India" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <button class="continue-btn" onclick="proceedToPayment()">
+                Continue to Payment →
+            </button>
+
+            <div class="security-badge">
+                🔒 Your information is secure and encrypted
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+            <h2 class="summary-title">Order Summary</h2>
+            <div id="orderItems">
+                <!-- Items will be loaded here -->
+            </div>
+
+            <div class="price-breakdown">
+                <div class="price-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">₹0</span>
+                </div>
+                <div class="price-row">
+                    <span>GST (18%)</span>
+                    <span id="gst">₹0</span>
+                </div>
+                <div class="price-row total">
+                    <span>Total</span>
+                    <span id="total">₹0</span>
+                </div>
+            </div>
+
+            <div style="font-size: 0.875rem; color: #6b7280; text-align: center;">
+                <strong>Accepted Payment Methods:</strong><br>
+                Cards • UPI • Net Banking • Wallets
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+
+        // Load cart from session storage
+        function loadCart() {
+            const cartData = sessionStorage.getItem('cart');
+            if (!cartData) {
+                window.location.href = 'shop-products.html';
+                return;
+            }
+
+            cart = JSON.parse(cartData);
+            displayOrderSummary();
+        }
+
+        // Display order summary
+        function displayOrderSummary() {
+            const orderItems = document.getElementById('orderItems');
+            const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+            const gst = Math.round(subtotal * 0.18);
+            const total = subtotal + gst;
+
+            // Display items
+            orderItems.innerHTML = cart.map(item => `
+                <div class="order-item">
+                    <div class="order-item-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        ${item.icon}
+                    </div>
+                    <div class="order-item-details">
+                        <div class="order-item-title">${item.name}</div>
+                        <div class="order-item-price">₹${item.price}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Update prices
+            document.getElementById('subtotal').textContent = `₹${subtotal}`;
+            document.getElementById('gst').textContent = `₹${gst}`;
+            document.getElementById('total').textContent = `₹${total}`;
+        }
+
+        // Validate form
+        function validateForm() {
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const fullName = document.getElementById('fullName').value;
+            const city = document.getElementById('city').value;
+            const state = document.getElementById('state').value;
+            const pincode = document.getElementById('pincode').value;
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('Please enter a valid email address');
+                return false;
+            }
+
+            // Phone validation
+            const phoneRegex = /^(\+91|91)?[6-9]\d{9}$/;
+            if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
+                showError('Please enter a valid 10-digit phone number');
+                return false;
+            }
+
+            // Required fields
+            if (!fullName || !city || !state || !pincode) {
+                showError('Please fill in all required fields');
+                return false;
+            }
+
+            // PIN code validation
+            if (!/^\d{6}$/.test(pincode)) {
+                showError('Please enter a valid 6-digit PIN code');
+                return false;
+            }
+
+            return true;
+        }
+
+        // Show error
+        function showError(message) {
+            const alert = document.getElementById('errorAlert');
+            alert.textContent = message;
+            alert.classList.add('show');
+            
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 5000);
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Proceed to payment
+        function proceedToPayment() {
+            if (!validateForm()) return;
+
+            // Store billing details
+            const billingDetails = {
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                fullName: document.getElementById('fullName').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                pincode: document.getElementById('pincode').value,
+                country: document.getElementById('country').value
+            };
+
+            sessionStorage.setItem('billingDetails', JSON.stringify(billingDetails));
+            
+            // Redirect to payment page
+            window.location.href = 'payment.html';
+        }
+
+        // Initialize
+        loadCart();
+    </script>
+</body>
+</html>
