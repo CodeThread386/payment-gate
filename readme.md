@@ -85,7 +85,7 @@ secureshop/
 │   ├── checkout.html      # Billing details form
 │   ├── payment.html       # Payment processing with Razorpay
 │   └── success.html       # Order confirmation page
-└── readme.md
+
 ```
 
 ## Output
